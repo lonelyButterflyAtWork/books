@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublisherController;
+use App\Models\Publisher;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
+
+Route::group(['prefix' => '/authors'], function () {
+    Route::get('/', [AuthorController::class, 'index'])
+        ->name('authors');
+    Route::get('/create', [AuthorController::class, 'create'])
+        ->name('authors.create');
+    Route::post('create', [AuthorController::class, 'store'])
+        ->name('authors.store');
+});
+
+Route::group(['prefix' => '/publishers'], function () {
+    Route::get('/', [PublisherController::class, 'index'])
+        ->name('publishers');
+});
+
+Route::group(['prefix' => '/books'], function () {
+    Route::get('/', [BookController::class, 'index'])
+        ->name('books');
+
+    Route::get('/create', [BookController::class, 'create'])
+        ->name('books.create');
 });

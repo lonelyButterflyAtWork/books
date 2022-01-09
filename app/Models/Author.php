@@ -19,6 +19,8 @@ class Author extends Model
         "surname",
     ];
 
+    public $timestamps = false;
+
     public function books()
     {
         return $this->hasMany(Book::class);

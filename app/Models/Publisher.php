@@ -19,6 +19,8 @@ class Publisher extends Model
         "establishment_year",
     ];
 
+    public $timestamps = false;
+
     public function books()
     {
         return $this->hasMany(Book::class);
