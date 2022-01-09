@@ -28,6 +28,10 @@ Route::group(['prefix' => '/authors'], function () {
         ->name('authors.create');
     Route::post('create', [AuthorController::class, 'store'])
         ->name('authors.store');
+    Route::get('{author}/edit', [AuthorController::class, 'edit'])
+        ->name('authors.edit');
+    Route::post('{author}', [AuthorController::class, 'update'])
+        ->name('authors.update');
 });
 
 Route::group(['prefix' => '/publishers'], function () {

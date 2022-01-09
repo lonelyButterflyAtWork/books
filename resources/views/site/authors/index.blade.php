@@ -28,7 +28,7 @@
                                     <td>{{ $author->surname ?? '' }}</td>
                                     <td>{{ $author->name ?? '' }}</td>
                                     <td class="d-flex justify-content-end">
-                                        <a class="btn btn-app">
+                                        <a class="btn btn-app" href="{{ route("authors.edit", $author) }}">
                                             <i class="fas fa-edit"></i> Edytuj
                                         </a>
                                         <a class="btn btn-app">

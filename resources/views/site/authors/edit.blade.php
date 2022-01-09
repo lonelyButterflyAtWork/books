@@ -9,12 +9,12 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ route('authors.store') }}" method="POST">
+                <form action="{{ route('authors.update', $author) }}" method="POST">
                     @csrf
                     @include('site.authors.form')
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Zapisz</button>
+                    <button type="submit" class="btn btn-primary">Zaktualizuj</button>
                   </div>
                 </form>
               </div>
