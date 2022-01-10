@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Publisher;
+use Exception;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -29,50 +30,74 @@ class BookController extends Controller
         return view('site.books.create', compact('authors', 'publishers'));
     }
 
-    public function store(BookRequest $bookRequest, Book $author)
+    public function store(BookRequest $bookRequest, Book $book)
     {
-        $author = new Book();
-        $author->name = strip_tags($bookRequest->get('name'));
-        $author->surname = strip_tags($bookRequest->get('surname'));
-        if ($author->save()) {
-            return redirect()->route('books')->with([
-                'success' => true,
-                'message_type' => 'success',
-                'message' => "Pomyślnie zapisano autora"
-            ]);
-        } else {
+        try {
+            $book = new Book();
+            $book->title = strip_tags($bookRequest->get('title'));
+            $book->isbn = str_replace("-", "", $bookRequest->get('isbn'));
+            $book->publication_year = $bookRequest->get('publication_year');
+            $book->author()->associate($bookRequest->get('author_id'));
+            $book->publisher()->associate($bookRequest->get('publisher_id'));
+            if ($book->save()) {
+                return redirect()->route('books')->with([
+                    'success' => true,
+                    'message_type' => 'success',
+                    'message' => "Pomyślnie zapisano książkę"
+                ]);
+            } else {
+                return back()->with([
+                    'success' => false,
+                    'message_type' => 'danger',
+                    'message' => "Błąd podczas zapisu"
+                ]);
+            }
+            return view('site.books.index');
+        } catch (Exception $exception) {
             return back()->with([
                 'success' => false,
                 'message_type' => 'danger',
                 'message' => "Błąd podczas zapisu"
             ]);
         }
-        return view('site.books.index');
     }
 
-    public function edit(Book $author)
+    public function edit(Book $book)
     {
-        return view('site.books.edit', compact('author'));
+        $authors = Author::all();
+        $publishers = Publisher::all();
+        return view('site.books.edit', compact('authors', 'publishers', 'book'));
     }
 
-    public function update(BookRequest $bookRequest, Book $author)
+    public function update(BookRequest $bookRequest, Book $book)
     {
-        $author->name = strip_tags($bookRequest->get('name'));
-        $author->surname = strip_tags($bookRequest->get('surname'));
-        if ($author->save()) {
-            return redirect()->route('books')->with([
-                'success' => true,
-                'message_type' => 'success',
-                'message' => "Pomyślnie zaktualizowano dane autora"
-            ]);
-        } else {
+        try {
+            $book->title = strip_tags($bookRequest->get('title'));
+            $book->isbn = str_replace("-", "", $bookRequest->get('isbn'));
+            $book->publication_year = $bookRequest->get('publication_year');
+            $book->author()->associate($bookRequest->get('author_id'));
+            $book->publisher()->associate($bookRequest->get('publisher_id'));
+            if ($book->save()) {
+                return redirect()->route('books')->with([
+                    'success' => true,
+                    'message_type' => 'success',
+                    'message' => "Pomyślnie zapisano książkę"
+                ]);
+            } else {
+                return back()->with([
+                    'success' => false,
+                    'message_type' => 'danger',
+                    'message' => "Błąd podczas zapisu"
+                ]);
+            }
+            return view('site.books.index');
+        } catch (Exception $exception) {
             return back()->with([
                 'success' => false,
                 'message_type' => 'danger',
                 'message' => "Błąd podczas zapisu"
             ]);
         }
-        return view('site.books.index');
     }
 
     public function destroy($authorId)

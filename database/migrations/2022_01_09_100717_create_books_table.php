@@ -18,12 +18,12 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->foreignId('author_id');
             $table->text('title');
-            $table->integer('isbn');
+            $table->bigInteger('isbn');
 
             $table->foreign('author_id')->references('id')->on('authors');
         });
 
-        DB::statement('ALTER TABLE books MODIFY COLUMN ISBN INTEGER (13);');
+        DB::statement('ALTER TABLE books MODIFY COLUMN isbn BIGINT (13);');
 
         Schema::table('books', function($table) {
             $table->foreignId('publisher_id');

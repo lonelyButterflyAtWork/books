@@ -11,7 +11,11 @@
         <label>Autor*</label>
         <select name="author_id" id="" required>
             @foreach ($authors as $author)
-                <option value="{{$author->id}}">{{$author->surname}} {{$author->name}}</option>
+                @if (isset($book->author_id) && $book->author_id == $author->id)
+                    <option value="{{$author->id}}" selected>{{$author->surname}} {{$author->name}}</option>
+                @else
+                    <option value="{{$author->id}}">{{$author->surname}} {{$author->name}}</option>
+                @endif
             @endforeach
         </select>
     </div>
@@ -27,7 +31,11 @@
         <label>Wydawnictwo*</label>
         <select name="publisher_id" id="" required>
             @foreach ($publishers as $publisher)
-                <option value="{{$publisher->id}}">{{$publisher->name}} {{$publisher->establishment_year}}</option>
+                @if (isset($book->publisher_id) && $book->publisher_id == $publisher->id)
+                    <option value="{{$publisher->id}}" selected>{{$publisher->name}} {{$publisher->establishment_year}}</option>
+                @else
+                    <option value="{{$publisher->id}}">{{$publisher->name}} {{$publisher->establishment_year}}</option>
+                @endif
             @endforeach
         </select>
     </div>

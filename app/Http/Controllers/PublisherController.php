@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PublisherRequest;
 use App\Models\Publisher;
+use Exception;
 
 class PublisherController extends Controller
 {
@@ -27,23 +28,31 @@ class PublisherController extends Controller
 
     public function store(PublisherRequest $publisherRequest, Publisher $publisher)
     {
-        $publisher = new Publisher();
-        $publisher->name = strip_tags($publisherRequest->get('name'));
-        $publisher->establishment_year = $publisherRequest->get('establishment_year');
-        if ($publisher->save()) {
-            return redirect()->route('publishers')->with([
-                'success' => true,
-                'message_type' => 'success',
-                'message' => "Pomyślnie zapisano wydawnictwo"
-            ]);
-        } else {
+        try {
+            $publisher = new Publisher();
+            $publisher->name = strip_tags($publisherRequest->get('name'));
+            $publisher->establishment_year = $publisherRequest->get('establishment_year');
+            if ($publisher->save()) {
+                return redirect()->route('publishers')->with([
+                    'success' => true,
+                    'message_type' => 'success',
+                    'message' => "Pomyślnie zapisano wydawnictwo"
+                ]);
+            } else {
+                return back()->with([
+                    'success' => false,
+                    'message_type' => 'danger',
+                    'message' => "Błąd podczas zapisu"
+                ]);
+            }
+            return view('site.publishers.index');
+        } catch (Exception $exception) {
             return back()->with([
                 'success' => false,
                 'message_type' => 'danger',
                 'message' => "Błąd podczas zapisu"
             ]);
         }
-        return view('site.publishers.index');
     }
 
     public function edit(Publisher $publisher)
@@ -53,22 +62,30 @@ class PublisherController extends Controller
 
     public function update(PublisherRequest $publisherRequest, Publisher $publisher)
     {
-        $publisher->name = strip_tags($publisherRequest->get('name'));
-        $publisher->establishment_year = strip_tags($publisherRequest->get('establishment_year'));
-        if ($publisher->save()) {
-            return redirect()->route('publishers')->with([
-                'success' => true,
-                'message_type' => 'success',
-                'message' => "Pomyślnie zaktualizowano wydawnictwo"
-            ]);
-        } else {
+        try {
+            $publisher->name = strip_tags($publisherRequest->get('name'));
+            $publisher->establishment_year = strip_tags($publisherRequest->get('establishment_year'));
+            if ($publisher->save()) {
+                return redirect()->route('publishers')->with([
+                    'success' => true,
+                    'message_type' => 'success',
+                    'message' => "Pomyślnie zaktualizowano wydawnictwo"
+                ]);
+            } else {
+                return back()->with([
+                    'success' => false,
+                    'message_type' => 'danger',
+                    'message' => "Błąd podczas zapisu"
+                ]);
+            }
+            return view('site.publishers.index');
+        } catch (Exception $exception) {
             return back()->with([
                 'success' => false,
                 'message_type' => 'danger',
                 'message' => "Błąd podczas zapisu"
             ]);
         }
-        return view('site.publishers.index');
     }
 
     public function destroy($publisherId)

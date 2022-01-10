@@ -21,11 +21,14 @@ class BookRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'isbn' => trim($this->isbn, "-"),
+            'isbn' => str_replace("-", "", $this->isbn),
         ]);
 
-        if (is_numeric($this->isbn)){
-            return false;
+        if (!is_numeric($this->isbn)){
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'isbn' => ['ISBN musi składać się z 13 cyfr.'],
+             ]);
+            throw $error;
         }
     }
 

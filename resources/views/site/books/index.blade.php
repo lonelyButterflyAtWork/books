@@ -28,9 +28,9 @@
                             @foreach ($books as $book)
                                 <tr>
                                     <td>{{ $book->title ?? '' }}</td>
-                                    <td>{{ $book->author() ?? '' }}</td>
+                                    <td>{{ ($book->author->surname . " " . $book->author->name) ?? ''}}</td>
                                     <td>{{ $book->isbn ?? '' }}</td>
-                                    <td>{{ $book->publisher() ?? '' }}</td>
+                                    <td>{{ $book->publisher->name ?? '' }}</td>
                                     <td>{{ $book->publication_year ?? '' }}</td>
                                     <td>
                                         <div class="d-flex justify-content-end">

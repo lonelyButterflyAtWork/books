@@ -9,7 +9,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ route('books.update', $author) }}" method="POST">
+                <form action="{{ route('books.update', $book) }}" method="POST">
                     @csrf
                     @include('site.books.form')
                     <!-- /.card-body -->
