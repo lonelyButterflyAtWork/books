@@ -17,8 +17,8 @@ class AuthorController extends Controller
 
     public function indexApi()
     {
-        $authors = Author::all()->sortBy('surname');
-        return response()->json(json_decode($authors));
+        $authors = Author::all()->sortBy('surname')->toArray();
+        return response()->json($authors);
     }
 
     public function create()

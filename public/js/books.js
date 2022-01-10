@@ -1,24 +1,24 @@
-const authorsTable = document.querySelector("#authorsTableTbody");
-const authors = {
-    deleteById: function (authorId) {
-        window.axios.delete(`api/authors/destroy/${authorId}`)
+const booksTable = document.querySelector("#booksTableTbody");
+const books = {
+    deleteById: function (bookId) {
+        window.axios.delete(`api/books/destroy/${bookId}`)
             .then(res => {
             }).catch(err => {
                 console.log(err)
             })
     },
     refreshAuthorsList: function () {
-        window.axios.get('api/authors')
+        window.axios.get('api/books')
             .then(res => {
-                authorsTable.innerHTML = "";
-                authorsList = res.data;
-                if (Array.isArray(authorsList)) {
-                    authorsList.forEach(author => {
-                        addTableRow(author);
+                booksTable.innerHTML = "";
+                booksList = res.data;
+                if (Array.isArray(booksList)) {
+                    booksList.forEach(book => {
+                        addTableRow(book);
                     });
                 } else {
-                    Object.keys(authorsList).forEach(key => {
-                        addTableRow(authorsList[key]);
+                    Object.keys(booksList).forEach(key => {
+                        addTableRow(booksList[key]);
                     });
                 }
             });
@@ -32,21 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 });
 
-function deleteAuthorPopup(id, surname, name) {
-    if (confirm("Czy na pewno chcesz usunąć autora " + surname + " " + name + "?")) {
-        authors.deleteById(id);
-        authors.refreshAuthorsList();
+function deleteBookPopup(id, title) {
+    if (confirm("Czy na pewno chcesz usunąć książkę " + title + "?")) {
+        books.deleteById(id);
+        books.refreshAuthorsList();
     }
 }
 
-function addTableRow(author) {
-
+function addTableRow(book) {
     let attributes = [
-        author.surname,
-        author.name,
+        book.title,
+        book.author.surname + " " + book.author.name,
+        book.isbn,
+        book.publisher.name,
+        book.publication_year
     ];
 
-    let newRow = authorsTable.insertRow(-1);
+    let newRow = booksTable.insertRow(-1);
 
     for (let qty = 0; qty < attributes.length; qty++) {
         let newCell = newRow.insertCell(qty);
@@ -56,10 +58,10 @@ function addTableRow(author) {
     let actionsCell = newRow.insertCell(attributes.length);
     let actions = document.createRange().createContextualFragment(`
         <div class="d-flex justify-content-end">
-            <a class="btn btn-app" href="/authors/` + author.id + `/edit">
+            <a class="btn btn-app" href="/books/` + book.id + `/edit">
                 <i class="fas fa-edit"></i> Edytuj
             </a>
-            <a class="btn btn-app" onclick="deleteAuthorPopup(` + author.id + `,'` + author.surname + `','` + author.name + `')">
+            <a class="btn btn-app" onclick="deleteBookPopup(` + book.id + `,'` + book.title + `')">
                 <i class="fas fa-trash-alt"></i> Usuń
             </a>
         </div>`);

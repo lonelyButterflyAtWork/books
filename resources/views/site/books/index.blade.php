@@ -37,7 +37,7 @@
                                             <a class="btn btn-app" href="{{ route("books.edit", $book) }}">
                                                 <i class="fas fa-edit"></i> Edytuj
                                             </a>
-                                            <a class="btn btn-app" onclick="deletebookPopup({{ $book->id }}, '{{ $book->surname }}', '{{ $book->name }}')">
+                                            <a class="btn btn-app" onclick="deleteBookPopup({{ $book->id }}, '{{ $book->surname }}', '{{ $book->name }}')">
                                                 <i class="fas fa-trash-alt"></i> Usuń
                                             </a>
                                         </div>

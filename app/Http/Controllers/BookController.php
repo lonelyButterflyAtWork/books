@@ -19,8 +19,8 @@ class BookController extends Controller
 
     public function indexApi()
     {
-        $books = Book::all()->sortBy('title');
-        return response()->json(json_decode($books));
+        $books = Book::with('author')->with('publisher')->orderBy('title')->get();
+        return response()->json($books);
     }
 
     public function create()

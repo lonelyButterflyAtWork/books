@@ -17,8 +17,8 @@ class PublisherController extends Controller
 
     public function indexApi()
     {
-        $publishers = Publisher::all()->sortBy('name');
-        return response()->json(json_decode($publishers));
+        $publishers = Publisher::all()->sortBy('name')->toArray();
+        return response()->json($publishers);
     }
 
     public function create()

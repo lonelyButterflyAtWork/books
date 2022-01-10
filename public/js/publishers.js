@@ -41,11 +41,18 @@ function deletePublisherPopup(id, name) {
 
 function addTableRow(publisher) {
     let newRow = publishersTable.insertRow(-1);
-    let nameCell = newRow.insertCell(0);
-    let name = document.createTextNode(publisher.name);
-    let establishmentYearCell = newRow.insertCell(1);
-    let establishmentYear = document.createTextNode(publisher.establishment_year);
-    let actionsCell = newRow.insertCell(2);
+
+    let attributes = [
+        publisher.name,
+        publisher.establishment_year,
+    ];
+
+    for (let qty = 0; qty < attributes.length; qty++) {
+        let newCell = newRow.insertCell(qty);
+        let cellText = document.createTextNode(attributes[qty]);
+        newCell.appendChild(cellText);
+    }
+    let actionsCell = newRow.insertCell(attributes.length);
     let actions = document.createRange().createContextualFragment(`
         <div class="d-flex justify-content-end">
             <a class="btn btn-app" href="/publishers/` + publisher.id + `/edit">
@@ -56,7 +63,5 @@ function addTableRow(publisher) {
             </a>
         </div>`);
 
-    nameCell.appendChild(name);
-    establishmentYearCell.appendChild(establishmentYear);
     actionsCell.appendChild(actions);
 }
