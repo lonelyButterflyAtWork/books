@@ -24,10 +24,10 @@ class BookRequest extends FormRequest
             'isbn' => str_replace("-", "", $this->isbn),
         ]);
 
-        if (!is_numeric($this->isbn)){
+        if (!is_numeric($this->isbn)) {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'isbn' => ['ISBN musi składać się z 13 cyfr.'],
-             ]);
+            ]);
             throw $error;
         }
     }

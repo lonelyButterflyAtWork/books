@@ -45,12 +45,11 @@ Route::group(['prefix' => '/publishers'], function () {
         ->name('publishers.edit');
     Route::post('{publisher}', [PublisherController::class, 'update'])
         ->name('publishers.update');
-
 });
 
 Route::group(['prefix' => '/books'], function () {
     Route::get('/', [BookController::class, 'index'])
-    ->name('books');
+        ->name('books');
     Route::get('/create', [BookController::class, 'create'])
         ->name('books.create');
     Route::post('create', [BookController::class, 'store'])

@@ -25,7 +25,7 @@ class PublisherRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'establishment_year' => 'required|digits:4|integer|min:1000|max:'.(date('Y')),
+            'establishment_year' => 'required|digits:4|integer|min:1000|max:' . (date('Y')),
         ];
     }
 }
