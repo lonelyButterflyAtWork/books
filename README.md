@@ -13,5 +13,5 @@
     <li>Uruchom komendę php artisan migrate w terminalu w katalogu głównym projektu</li>
     <li>Uruchom komendę php artisan serve w terminalu w katalogu głównym projektu</li>
 </ol>
-<p>Aplikacja powinna być dostępna pod adresem, który wyświetli sie w erminalu (defaultowo http://localhost:8000)</p>
+<p>Aplikacja powinna być dostępna pod adresem, który wyświetli się w terminalu (domyślnie http://localhost:8000)</p>
 
