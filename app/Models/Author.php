@@ -17,6 +17,7 @@ class Author extends Model
     protected $fillable = [
         "name",
         "surname",
+        "id",
     ];
 
     public $timestamps = false;

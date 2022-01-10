@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="form-group">
-        <label for="exampleInputEmail1">Imię*</label>
+        <label>Imię*</label>
         <input type="text" class="form-control" name="name" placeholder="Wpisz imię"
             @if (!empty($author->name))
                 value = "{{ $author->name }}"
@@ -8,7 +8,7 @@
         required>
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Nazwisko*</label>
+        <label>Nazwisko*</label>
         <input type="text" class="form-control" name="surname" placeholder="Wpisz nazwisko"
             @if (!empty($author->surname))
                 value = "{{ $author->surname }}"

@@ -50,10 +50,15 @@ Route::group(['prefix' => '/publishers'], function () {
 
 Route::group(['prefix' => '/books'], function () {
     Route::get('/', [BookController::class, 'index'])
-        ->name('books');
-
+    ->name('books');
     Route::get('/create', [BookController::class, 'create'])
         ->name('books.create');
+    Route::post('create', [BookController::class, 'store'])
+        ->name('books.store');
+    Route::get('{book}/edit', [BookController::class, 'edit'])
+        ->name('books.edit');
+    Route::post('{book}', [BookController::class, 'update'])
+        ->name('books.update');
 });
 
 //API
@@ -69,5 +74,11 @@ Route::group(['prefix' => '/api'], function () {
             ->name('publishersApi');
         Route::delete('/destroy/{publisherId}', [PublisherController::class, 'destroy'])
             ->name('publishers.destroy');
+    });
+    Route::group(['prefix' => '/books'], function () {
+        Route::get('/', [BookController::class, 'indexApi'])
+            ->name('booksApi');
+        Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])
+            ->name('books.destroy');
     });
 });
