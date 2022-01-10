@@ -14,6 +14,12 @@ class AuthorController extends Controller
         return view('site.authors.index', compact('authors'));
     }
 
+    public function indexApi()
+    {
+        $authors = Author::all()->sortBy('surname');
+        return response()->json(json_decode($authors));
+    }
+
     public function create()
     {
         return view('site.authors.create');
@@ -25,9 +31,17 @@ class AuthorController extends Controller
         $author->name = strip_tags($authorRequest->get('name'));
         $author->surname = strip_tags($authorRequest->get('surname'));
         if ($author->save()) {
-            return redirect()->route('authors')->with(['success' => true, 'message_type' => 'success', 'message' => "Pomyślnie zapisano autora"]);
+            return redirect()->route('authors')->with([
+                'success' => true,
+                'message_type' => 'success',
+                'message' => "Pomyślnie zapisano autora"
+            ]);
         } else {
-            return back()->with(['success' => false, 'message_type' => 'danger', 'message' => "Błąd podczas zapisu"]);
+            return back()->with([
+                'success' => false,
+                'message_type' => 'danger',
+                'message' => "Błąd podczas zapisu"
+            ]);
         }
         return view('site.authors.index');
     }
@@ -42,14 +56,25 @@ class AuthorController extends Controller
         $author->name = strip_tags($authorRequest->get('name'));
         $author->surname = strip_tags($authorRequest->get('surname'));
         if ($author->save()) {
-            return redirect()->route('authors')->with(['success' => true, 'message_type' => 'success', 'message' => "Pomyślnie zaktualizowano dane autora"]);
+            return redirect()->route('authors')->with([
+                'success' => true,
+                'message_type' => 'success',
+                'message' => "Pomyślnie zaktualizowano dane autora"
+            ]);
         } else {
-            return back()->with(['success' => false, 'message_type' => 'danger', 'message' => "Błąd podczas zapisu"]);
+            return back()->with([
+                'success' => false,
+                'message_type' => 'danger',
+                'message' => "Błąd podczas zapisu"]);
         }
         return view('site.authors.index');
     }
 
-    public function destroy(Author $book)
+    public function destroy($authorId)
     {
+        $author = Author::find($authorId);
+        if (!empty($author)) {
+            $author->delete();
+        }
     }
 }
