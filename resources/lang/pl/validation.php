@@ -92,7 +92,8 @@ return array(
 	'attributes' => array(
 		'username' => 'nazwa użytkownika',
         'name' => 'nazwa',
-        'surname' => 'nazwisko'
+        'surname' => 'nazwisko',
+        'establishment_year' => 'rok założenia'
 	),
 
 );

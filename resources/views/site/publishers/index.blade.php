@@ -5,34 +5,34 @@
         <div class="col-12 mt-2">
             <div class="card m-3">
                 <div class="card-header">
-                    <h3 class="card-title">Autorzy</h3>
+                    <h3 class="card-title">Wydawnictwa</h3>
                     <div class="card-tools">
-                        <a href="{{ route("authors.create") }}" class="btn btn-success">
+                        <a href="{{ route("publishers.create") }}" class="btn btn-success">
                             <i class="fas fa-plus mr-1"></i> Dodaj
                         </a>
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap" id = "authorsTable">
+                    <table class="table table-hover text-nowrap" id = "publishersTable">
                         <thead>
                             <tr>
-                                <th>Nazwisko</th>
-                                <th>Imię</th>
+                                <th>Nazwa</th>
+                                <th>Rok założenia</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody id = "authorsTableTbody">
-                            @foreach ($authors as $author)
+                        <tbody id = "publishersTableTbody">
+                            @foreach ($publishers as $publisher)
                                 <tr>
-                                    <td>{{ $author->surname ?? '' }}</td>
-                                    <td>{{ $author->name ?? '' }}</td>
+                                    <td>{{ $publisher->name ?? '' }}</td>
+                                    <td>{{ $publisher->establishment_year ?? '' }}</td>
                                     <td>
                                         <div class="d-flex justify-content-end">
-                                            <a class="btn btn-app" href="{{ route("authors.edit", $author) }}">
+                                            <a class="btn btn-app" href="{{ route("publishers.edit", $publisher) }}">
                                                 <i class="fas fa-edit"></i> Edytuj
                                             </a>
-                                            <a class="btn btn-app" onclick="deleteAuthorPopup({{ $author->id }}, '{{ $author->surname }}', '{{ $author->name }}')">
+                                            <a class="btn btn-app" onclick="deletePublisherPopup({{ $publisher->id }}, '{{ $publisher->name }}', '{{ $publisher->establishment_year }}')">
                                                 <i class="fas fa-trash-alt"></i> Usuń
                                             </a>
                                         </div>
@@ -47,5 +47,5 @@
         <!-- /.card -->
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('js/authors.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/publishers.js') }}"></script>
 @endsection

@@ -16,7 +16,7 @@ class CreatePublishersTable extends Migration
         Schema::create('publishers', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->year('establishment_year');
+            $table->integer('establishment_year');
         });
     }
 

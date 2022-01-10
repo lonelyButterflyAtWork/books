@@ -5,20 +5,20 @@
         <div class="col-12 mt-2">
             <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Dodaj autora</h3>
+                  <h3 class="card-title">Edytuj wydawnictwo</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ route('authors.store') }}" method="POST">
+                <form action="{{ route('publishers.update', $publisher) }}" method="POST">
                     @csrf
-                    @include('site.authors.form')
+                    @include('site.publishers.form')
                     <!-- /.card-body -->
                     <div class="d-flex card-footer">
                         <div class="m-1">
                             <button type="submit" class="btn btn-primary">Zapisz</button>
                         </div>
                         <div class="m-1">
-                            <a type="submit" href="{{route('authors')}}" class="btn btn-primary">Powrót do listy</a>
+                            <a type="submit" href="{{route('publishers')}}" class="btn btn-primary">Powrót do listy</a>
                         </div>
                     </div>
                 </form>

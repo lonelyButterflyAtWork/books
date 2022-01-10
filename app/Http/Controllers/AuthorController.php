@@ -65,7 +65,8 @@ class AuthorController extends Controller
             return back()->with([
                 'success' => false,
                 'message_type' => 'danger',
-                'message' => "Błąd podczas zapisu"]);
+                'message' => "Błąd podczas zapisu"
+            ]);
         }
         return view('site.authors.index');
     }
