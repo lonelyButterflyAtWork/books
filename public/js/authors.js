@@ -12,15 +12,9 @@ const authors = {
             .then(res => {
                 authorsTable.innerHTML = "";
                 authorsList = res.data;
-                if (Array.isArray(authorsList)) {
-                    authorsList.forEach(author => {
-                        addTableRow(author);
-                    });
-                } else {
-                    Object.keys(authorsList).forEach(key => {
-                        addTableRow(authorsList[key]);
-                    });
-                }
+                authorsList.forEach(author => {
+                    addTableRow(author);
+                });
             });
     },
 }
