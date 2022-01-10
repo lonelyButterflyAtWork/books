@@ -25,7 +25,7 @@ class CreateBooksTable extends Migration
 
         DB::statement('ALTER TABLE books MODIFY COLUMN isbn BIGINT (13);');
 
-        Schema::table('books', function($table) {
+        Schema::table('books', function ($table) {
             $table->foreignId('publisher_id');
             $table->foreign('publisher_id')->references('id')->on('publishers');
             $table->year('publication_year');
